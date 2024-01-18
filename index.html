@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MaterializeCSS Vertical Tabs</title>
+  <!-- links para o Materialize CSS aqui -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <style>
+    /* Adicione seu estilo personalizado aqui, se necessário */
+    body {
+      display: flex;
+      min-height: 100vh;
+      flex-direction: column;
+      transition: background-color 0.5s ease; /* Transição para suavizar a mudança de cor de fundo */
+    }
+
+    body.dark-theme {
+      background-color: #333; /* Cor de fundo para o tema dark */
+      color: #fff; /* Cor do texto para o tema dark */
+    }
+
+    main {
+      flex: 1 0 auto;
+    }
+
+    .tabs-vertical {
+      display: flex;
+      flex-direction: row;
+      margin-left: 15px;
+    }
+
+    .tabs-vertical .tabs-buttons {
+      flex: 0 0 115px;
+      /* Ajuste a largura conforme necessário, incluindo o espaço lateral */
+      display: flex;
+      flex-direction: column;
+      padding-top: 20px;
+      /* Ajuste o espaçamento conforme necessário */
+    }
+
+    .tabs-vertical .tabs-buttons a {
+      margin-bottom: 10px;
+      padding-left: 15px;
+      /* Adiciona espaço lateral ao início da aba */
+      background-color: #0d4491;
+      /* Muda a cor de fundo para #0d4491 */
+    }
+
+    .tabs-vertical .tabs-buttons a.active {
+      background-color: #4caf50;
+      color: #ffffff;
+    }
+
+    .tabs-vertical .tabs-content {
+      flex: 1;
+      padding: 0;
+    }
+
+    .tabs-vertical .tabs-content .content {
+      display: none;
+      margin-top: 15px;
+      /* Adiciona margem superior no conteúdo */
+      padding: 10px;
+      /* Adiciona espaço interno no conteúdo */
+    }
+
+    .tabs-vertical .tabs-content .content.active {
+      display: block;
+    }
+
+    /* Adicione o estilo para o rodapé */
+    footer {
+      height: 40px;
+      background-color: #0d4491;
+      color: #fff;
+      text-align: center;
+      padding-top: 10px;
+    }
+
+    /* Remova a cor rosa do topo da barra de navegação */
+    nav {
+      background-color: #0d4491;
+      /* Altera a cor de fundo da barra de navegação */
+      line-height: 25px; /* Centraliza verticalmente a logo */
+    }
+
+    .brand-logo {
+      margin-left: 95px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    /* Adicione o estilo para o switch de tema */
+    #theme-switch {
+      margin-top: 20px;
+      margin-right: 20px;
+    }
+
+    .tema{
+      font-size: 15px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Navbar -->
+  <nav>
+    <div class="nav-wrapper">
+      <a href="#" class="brand-logo">Logo</a>
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
+      </ul>
+      <!-- Adicione um seletor de tema -->
+      <div class="switch" id="theme-switch">
+        <label class="tema">
+          &nbsp;&nbsp;Tema
+          <input type="checkbox" id="theme-toggle">
+          <span class="lever"></span>
+        </label>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Conteúdo do Body -->
+  <main class="tabs-vertical">
+    <!-- Botões para Abrir as Abas -->
+    <div class="tabs-buttons">
+      <a href="#dashboard" class="waves-effect waves-light btn active">Dashboard</a>
+      <a href="#profile" class="waves-effect waves-light btn">Perfil</a>
+      <a href="#settings" class="waves-effect waves-light btn">Configurações</a>
+    </div>
+
+    <!-- Abas e Conteúdo -->
+    <div class="tabs-content">
+      <div id="dashboard" class="col s12 content active">Conteúdo do Dashboard</div>
+      <div id="profile" class="col s12 content">Conteúdo do Perfil</div>
+      <div id="settings" class="col s12 content">Conteúdo das Configurações</div>
+    </div>
+  </main>
+
+  <!-- Rodapé -->
+  <footer>
+    &copy; 2024 Seu Nome
+  </footer>
+
+  <!-- scripts necessários para o Materialize CSS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    // Inicialize os componentes do Materialize CSS
+    document.addEventListener('DOMContentLoaded', function () {
+      // Abas
+      var elemsTabs = document.querySelectorAll('.tabs');
+      var instancesTabs = M.Tabs.init(elemsTabs);
+
+      // Adiciona evento de clique aos botões das abas
+      var tabButtons = document.querySelectorAll('.tabs-buttons a');
+      var tabContents = document.querySelectorAll('.tabs-content .content');
+
+      tabButtons.forEach(function (tabButton, index) {
+        tabButton.addEventListener('click', function () {
+          // Remove a classe 'active' de todos os botões e conteúdos
+          tabButtons.forEach(function (btn) {
+            btn.classList.remove('active');
+          });
+          tabContents.forEach(function (content) {
+            content.classList.remove('active');
+          });
+
+          // Adiciona a classe 'active' ao botão e conteúdo clicados
+          this.classList.add('active');
+          tabContents[index].classList.add('active');
+        });
+      });
+
+      // Adiciona evento de troca de tema
+      var themeSwitch = document.getElementById('theme-toggle');
+      themeSwitch.addEventListener('change', function () {
+        document.body.classList.toggle('dark-theme');
+      });
+    });
+  </script>
+</body>
+
+</html>
